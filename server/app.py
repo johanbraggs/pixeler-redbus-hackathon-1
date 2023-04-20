@@ -6,16 +6,16 @@ import cv2
 CLASSES = ["aeroplane", "background", "bicycle", "bird", "boat",
            "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
            "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
-           "sofa", "train", "tvmonitor",    "Desk",    "computer",    "monitor",    "keyboard",    "mouse",    "printer",    "scanner",    "faxmachine",    "telephone",    "calculator",    "Notepad",    "Pen",    "Pencil",    "Highlighter",    "Stapler",    "Paperclip",    "Tape",    "Glue",    "Envelopes",    "Folders",    "File cabinet",    "Whiteboard",    "Markers",    "Post-it notes",    "Push pins",    "Ruler",    "Scissors",    "Paper",    "Binder clips",    "Rubber bands",    "Trash can",    "Desk lamp",    "Wall clock",    "Calendar",    "Name plate",    "Coat rack"]
+           "sofa", "train", "tvmonitor","pencil",    "Desk",    "computer",    "monitor",    "keyboard",    "mouse",    "printer",    "scanner",    "faxmachine",    "telephone",    "calculator",    "Notepad",    "Pen",    "Pencil",    "Highlighter",    "Stapler",    "Paperclip",    "Tape",    "Glue",    "Envelopes",    "Folders",    "File cabinet",    "Whiteboard",    "Markers",    "Post-it notes",    "Push pins",    "Ruler",    "Scissors",    "Paper",    "Binder clips",    "Rubber bands",    "Trash can",    "Desk lamp",    "Wall clock",    "Calendar",    "Name plate",    "Coat rack"]
 
 
 COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
-net = cv2.dnn.readNetFromCaffe("MobileNetSSD_deploy.prototxt.txt","MobileNetSSD_deploy.caffemodel")
+net = cv2.dnn.readNetFromCaffe("server\MobileNetSSD_deploy.prototxt.txt","server\MobileNetSSD_deploy.caffemodel")
 
-cap = cv2.VideoCapture("")
+cap = cv2.VideoCapture(0)
 
 time.sleep(2.0)
-
+xx=""
 while True:
 	# grab the frame from the video capture and resize it to have a maximum width of 400 pixels
 	_, frame = cap.read()
@@ -42,7 +42,11 @@ while True:
 
 			# Get the label with the confidence score
 			label = "{}: {:.2f}%".format(CLASSES[idx], confidence * 100)
-			xx=label
+			if CLASSES[idx]==xx:
+				print("Same")
+			else:
+				xx=CLASSES[idx]
+				print(label)
 
 			cv2.rectangle(frame, (startX, startY), (endX, endY),
 				COLORS[idx], 2)
