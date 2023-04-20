@@ -5,6 +5,7 @@ import { ConnectionManager } from "./components/ConnectionManager";
 import { MyForm } from "./components/MyForm";
 import { Events } from "./components/Events";
 import { fetchFunc } from "./fetch";
+import ImageStream from "./components/ImageStream";
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
   // const [fooEvents, setFooEvents] = useState(0);
@@ -52,7 +53,9 @@ function App() {
         ) : (
           "no"
         )}{" "}
+
       </p>
+        <ImageStream/>
     </div>
   );
 }
