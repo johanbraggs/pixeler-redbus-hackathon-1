@@ -2,6 +2,7 @@ import numpy as np
 import imutils
 import time
 import cv2
+# import socket_code
 
 CLASSES = ["aeroplane", "background", "bicycle", "bird", "boat",
            "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
@@ -46,6 +47,12 @@ while True:
 				print("Same")
 			else:
 				xx=CLASSES[idx]
+				try:
+					cv2.imwrite("image_temp.jpg",resized_image[startX:startY, endX:endY])
+					# socket_code.push("image_temp.jpg")
+				except:
+					print("error")
+				
 				print(label)
 
 			cv2.rectangle(frame, (startX, startY), (endX, endY),
