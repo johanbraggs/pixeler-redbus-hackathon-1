@@ -2,7 +2,7 @@ import numpy as np
 import imutils
 import time
 import cv2
-# import socket_code
+import socket_code
 
 CLASSES = ["aeroplane", "background", "bicycle", "bird", "boat",
            "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
@@ -13,7 +13,7 @@ CLASSES = ["aeroplane", "background", "bicycle", "bird", "boat",
 COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
 net = cv2.dnn.readNetFromCaffe("server\MobileNetSSD_deploy.prototxt.txt","server\MobileNetSSD_deploy.caffemodel")
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture("https://172.17.2.241:8080/video")
 
 time.sleep(2.0)
 xx=""
@@ -48,8 +48,8 @@ while True:
 			else:
 				xx=CLASSES[idx]
 				try:
-					cv2.imwrite("image_temp.jpg",resized_image[startX:startY, endX:endY])
-					# socket_code.push("image_temp.jpg")
+					cv2.imwrite("temp_image.jpg",resized_image)
+					socket_code.push("temp_image.jpg",CLASSES[idx])
 				except:
 					print("error")
 				
