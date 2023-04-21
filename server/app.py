@@ -3,17 +3,15 @@ import imutils
 import time
 import cv2
 import socket_code
+import firebase_push
 
-CLASSES = ["aeroplane", "background", "bicycle", "bird", "boat",
-           "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
-           "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
-           "sofa", "train", "tvmonitor","pencil",    "Desk",    "computer",    "monitor",    "keyboard",    "mouse",    "printer",    "scanner",    "faxmachine",    "telephone",    "calculator",    "Notepad",    "Pen",    "Pencil",    "Highlighter",    "Stapler",    "Paperclip",    "Tape",    "Glue",    "Envelopes",    "Folders",    "File cabinet",    "Whiteboard",    "Markers",    "Post-it notes",    "Push pins",    "Ruler",    "Scissors",    "Paper",    "Binder clips",    "Rubber bands",    "Trash can",    "Desk lamp",    "Wall clock",    "Calendar",    "Name plate",    "Coat rack"]
+CLASSES = ['person', 'bicycle', 'car', 'motorbike', 'aeroplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'sofa', 'pottedplant', 'bed', 'diningtable', 'toilet', 'tvmonitor', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush']
 
 
 COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
 net = cv2.dnn.readNetFromCaffe("server\MobileNetSSD_deploy.prototxt.txt","server\MobileNetSSD_deploy.caffemodel")
-
-cap = cv2.VideoCapture("https://172.17.2.241:8080/video")
+cam_link=input()
+cap = cv2.VideoCapture("https://"+cam_link+"/video")
 
 time.sleep(2.0)
 xx=""
@@ -49,7 +47,8 @@ while True:
 				xx=CLASSES[idx]
 				try:
 					cv2.imwrite("temp_image.jpg",resized_image)
-					socket_code.push("temp_image.jpg",CLASSES[idx])
+					# socket_code.push("temp_image.jpg",CLASSES[idx])
+					firebase_push.push(CLASSES[idx])
 				except:
 					print("error")
 				
