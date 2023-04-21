@@ -1,0 +1,14 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+button {
+  position: relative;
+  
+}
+body {
+  background-color: lightcyan;
+}
+image {
+  position: center;
+}
